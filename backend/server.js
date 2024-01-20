@@ -9,10 +9,12 @@ app.use(cors())
 
 const signInRoutes = require('./Routes/signIn')
 const loginRoutes =  require('./Routes/login')
+const mailRoutes = require('./Routes/mail')
 
 app.use(bodyParser.json({extended:false}))
 app.use(signInRoutes)
 app.use(loginRoutes)
+app.use(mailRoutes)
 
 sequelize.sync()
     .then(res=>{
