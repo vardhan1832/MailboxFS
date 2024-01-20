@@ -19,7 +19,7 @@ const Login = () => {
       if (res.status === 200) {
           localStorage.setItem('token',res.data.token)
           alert(res.data.message);
-          history.replace("/mailbox");
+          history.replace("/inbox");
       } else {
         console.log(res)
         alert(res.data.message)
