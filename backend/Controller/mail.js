@@ -14,7 +14,19 @@ const postMail = async (req,res)=>{
         res.status(400).json({message:err})
     }
 }
+const getInbox = async (req,res) =>{
+    try{
+        const data = await Mail.findAll({where : {receiver:req.user.email}})
+        // console.log(data)
+        res.status(200).json({inbox:data})
+    }catch(err){
+        console.log(err)
+        res.status(400).json({message:err})
+    }
+
+}
 
 module.exports = {
-    postMail
+    postMail,
+    getInbox
 }
