@@ -1,0 +1,13 @@
+/* MailBox.css */
+.editor-container {
+    display: flex;
+    flex-direction: column-reverse; /* Reverse the order so the toolbar comes to the bottom */
+    height: 100%;
+    margin-left: 25px;
+  }
+  
+  .toolbar-class {
+    margin-top: 5px; /* Add some margin to separate the toolbar from the editor */
+    width: 700px;
+  }
+  

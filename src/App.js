@@ -1,9 +1,14 @@
 import './App.css';
 import SignUp from './screens/SignIn';
 import Login from './screens/Login';
+import MailBox from './screens/MailBox';
+import NavbarComponent from './components/Navbar';
 import { Switch, Route } from 'react-router-dom/cjs/react-router-dom.min';
+import { Fragment } from 'react';
 function App() {
   return (
+    <Fragment>
+      <NavbarComponent/>
     <Switch>
       <Route path="/" exact>
           <SignUp/>
@@ -12,9 +17,10 @@ function App() {
           <Login/>
       </Route>
       <Route path='/mailbox'>
-          <h1>Mail Box</h1>
+          <MailBox/>
       </Route>
     </Switch>
+    </Fragment>
   );
 }
 
