@@ -53,6 +53,27 @@ const Inbox = () => {
       }
   }
 
+  const deletehandler = async (id) =>{
+    const confirmDelete = window.confirm('Are you sure to Delete this Mail?')
+    if(confirmDelete){
+      try{
+        const response = await axios.delete(`http://localhost:5000/mailbox/${id}`,{headers:{"Authorization" : token}})
+        if(response.status === 200 ){
+          let newMail = mails.filter((mail)=>{
+            return mail.id !== id
+           })
+            dispatch(mailactions.addMail(newMail))
+            alert(response.data.message)
+        }else{
+          throw new Error(response.data.message)
+        }
+      }catch(err){
+        console.log(err)
+      }
+    }else{
+      return
+    }
+  }
   const iconStyle = {
     width: "15px",
     height: "15px",
@@ -96,9 +117,12 @@ const Inbox = () => {
                 mails.map((mail) => {
                   return (
                     <>
-                      <ListGroup.Item key={mail.id} style={{ display: "flex", cursor:'pointer' }} onClick={()=>mailClickHandler(mail.id)}>
+                      <ListGroup.Item key={mail.id} style={{ display: "flex", cursor:'pointer',justifyContent:'space-between' }}>
+                        <div style={{display:'flex'}}  onClick={()=>mailClickHandler(mail.id)}>
                         {mail.unread && <span style={iconStyle} />}
                         {mail.sender}
+                        </div>
+                        <Button variant="danger" onClick={()=>deletehandler(mail.id)}>Delete Mail</Button>
                       </ListGroup.Item>
                       <Modal
                          show={modalShow}

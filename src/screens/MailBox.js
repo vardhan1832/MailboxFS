@@ -1,5 +1,6 @@
 // MailBox.js
 import React , {useRef} from "react";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { Button } from "react-bootstrap";
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
@@ -7,6 +8,7 @@ import "./MailBox.css";
 import axios from "axios";
 
 const MailBox = () => {
+    const history = useHistory()
     const token = localStorage.getItem('token')
     const receiverRef = useRef('')
     const emailTextRef = useRef('')
@@ -24,6 +26,7 @@ const MailBox = () => {
                 const res = await axios.post('http://localhost:5000/mailbox',obj,{headers:{"Authorization" : token}})
                 if(res.status === 200){
                     alert(res.data.message)
+                    history.push('/inbox')
                 }else{
                     throw new Error(res.data.message)
                 }
