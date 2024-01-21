@@ -6,7 +6,8 @@ const postMail = async (req,res)=>{
          await Mail.create({
             text:req.body.text,
             sender:req.user.email,
-            receiver:req.body.receiver
+            receiver:req.body.receiver,
+            unread:true
         })
         res.status(200).json({message:'Mail sent'})
     }catch(err){
@@ -25,8 +26,19 @@ const getInbox = async (req,res) =>{
     }
 
 }
+const putMail = async (req,res)=>{
+    try{
+        const id = req.params.id
+        await Mail.update({unread:false},{where:{id:id}})
+        res.status(200).json({message:'marked unread'})
+    }catch(err){
+        console.log(err)
+        res.status(500).json({message:err})
+    }
+}
 
 module.exports = {
     postMail,
-    getInbox
+    getInbox,
+    putMail
 }

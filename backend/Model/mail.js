@@ -17,6 +17,9 @@ const Mail = sequelize.define('Mail',{
     receiver:{
         type:Sequelize.STRING,
         allowNull:false
+    },
+    unread:{
+        type:Sequelize.BOOLEAN
     }
 })
 
