@@ -36,9 +36,19 @@ const putMail = async (req,res)=>{
         res.status(500).json({message:err})
     }
 }
-
+const deleteMail =async (req,res) =>{
+    try{
+        const id =  req.params.id;
+        await Mail.destroy({where:{id:id}})
+        res.status(200).json({message:'mail deleted successfulyy'})
+    }catch(err){
+        console.log(err)
+        res.status(500).json({message:err})
+    }
+}
 module.exports = {
     postMail,
     getInbox,
-    putMail
+    putMail,
+    deleteMail
 }
