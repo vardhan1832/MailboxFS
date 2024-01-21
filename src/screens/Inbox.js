@@ -29,7 +29,12 @@ const Inbox = () => {
         console.log(err);
       }
     };
-    getMails();
+    const intId = setInterval(()=>{
+      getMails();
+    },2000)
+    return ()=>{
+      clearInterval(intId)
+    }
   }, [dispatch]);
 
   const mailClickHandler =async (id) =>{
