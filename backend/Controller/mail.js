@@ -46,9 +46,20 @@ const deleteMail =async (req,res) =>{
         res.status(500).json({message:err})
     }
 }
+const getSent = async (req,res)=>{
+    try{
+        const data = await Mail.findAll({where : {sender:req.user.email}})
+        // console.log(data)
+        res.status(200).json({sent:data})
+    }catch(err){
+        console.log(err)
+        res.status(500).json({message:err})
+    }
+}
 module.exports = {
     postMail,
     getInbox,
     putMail,
-    deleteMail
+    deleteMail,
+    getSent
 }
