@@ -4,7 +4,11 @@ import { Link, useHistory } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
+import { useDispatch} from "react-redux";
+import { mailactions } from "../store/mailreducers";
+
 const Login = () => {
+  const dispatch = useDispatch()
   const [showPassword, setShowPassword] = useState(false);
   const history = useHistory();
   const emailref = useRef();
@@ -19,6 +23,7 @@ const Login = () => {
       if (res.status === 200) {
           localStorage.setItem('token',res.data.token)
           alert(res.data.message);
+          dispatch(mailactions.login)
           history.replace("/inbox");
       } else {
         console.log(res)

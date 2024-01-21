@@ -4,7 +4,9 @@ const mailSlice = createSlice({
     name: 'mail',
     initialState: {
         mails:[],
-        unreadTotal:0
+        sentMails:[],
+        unreadTotal:0,
+        isLoggedIn:localStorage.getItem('token')?true:false
     },
     reducers:{
         addMail:(state , action)=>{
@@ -12,6 +14,15 @@ const mailSlice = createSlice({
             state.unreadTotal = action.payload.reduce((sum,ele)=>{
                 return sum + (ele.unread? 1 : 0)
             },0)
+        },
+        addSentMail:(state,action)=>{
+            state.sentMails = [...action.payload]
+        },
+        logout:(state)=>{
+            state.isLoggedIn = false
+        },
+        login:(state)=>{
+            state.isLoggedIn = true
         }
     }
 })

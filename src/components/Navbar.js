@@ -1,11 +1,16 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import { Navbar , Button } from "react-bootstrap";
+import { useSelector ,useDispatch} from "react-redux";
+import { mailactions } from "../store/mailreducers";
 
 const NavbarComponent = () => {
+  const isLoggedIn = useSelector((state)=>state.isLoggedIn)
+  const dispatch = useDispatch()
   const history = useHistory()
   const clickHandler = () =>{
     localStorage.removeItem('token')
+    dispatch(mailactions.logout)
     alert('user successfully logged out')
     history.replace('/login')
   }
@@ -33,7 +38,7 @@ const NavbarComponent = () => {
       >
         Mail Box
       </Navbar.Brand>
-      <Button style={{marginRight:'3rem',width:'100px'}} variant='light' onClick={clickHandler}>Logout</Button>
+      {isLoggedIn && <Button style={{marginRight:'3rem',width:'100px'}} variant='light' onClick={clickHandler}>Logout</Button>}
     </Navbar>
   );
 };
